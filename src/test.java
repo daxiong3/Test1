@@ -11,6 +11,7 @@ import java.util.Scanner;
  */
 public class test {
     public static void main(String[] args) {
+        //zheli1xiugail
         String to = "2205997640@qq.com";
         // 需要提到发件人的电子邮件ID
         String from = "2190046630@qq.com";
