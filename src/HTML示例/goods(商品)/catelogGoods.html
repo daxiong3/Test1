@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8">
+    <title>猿来入此校园二手市场</title>
+    <link rel="icon" href="http://localhost:8080/img/logo.jpg" type="image/x-icon"/>
+    <link rel="stylesheet" href="http://localhost:8080/css/index.css" />
+    <link rel="stylesheet" href="http://localhost:8080/css/materialize-icon.css" />
+    <script>
+        function showLogin() {
+            if($("#signup-show").css("display")=='block'){
+                $("#signup-show").css("display","none");
+            }
+            if($("#login-show").css("display")=='none'){
+                $("#login-show").css("display","block");
+            }else{
+                $("#login-show").css("display","none");
+            }
+        }
+        function showSignup() {
+            if($("#login-show").css("display")=='block'){
+                $("#login-show").css("display","none");
+            }
+            if($("#signup-show").css("display")=='none'){
+                $("#signup-show").css("display","block");
+            }else{
+                $("#signup-show").css("display","none");
+            }
+        }
+        function ChangeName() {
+            if($("#changeName").css("display")=='none'){
+                $("#changeName").css("display","block");
+            }else{
+                $("#changeName").css("display","none");
+            }
+        }
+    </script>
+
+</head>
+<body ng-view="ng-view">
+<!--
+   猿来入此
+    时间：2018-2-24 13:28:16
+    描述：顶部
+-->
+<div ng-controller="headerController" class="header stark-components navbar-fixed ng-scope">
+    <nav class="white nav1">
+        <div class="nav-wrapper">
+            <!--链接到首页-->
+            <!--搜索商品-->
+            <a href="http://localhost:8080/goods/homeGoods" class="logo">
+                <em class="em1">猿来入此</em>
+                <em class="em2">校园二手市场</em>
+                <em class="em3"></em>
+            </a>
+            <div class="nav-wrapper search-bar">
+                <form ng-submit="search()" class="ng-pristine ng-invalid ng-invalid-required" action="">
+                    <div class="input-field">
+                        <input id="search" name="str"  placeholder="搜点什么吧..." style="height: 40px;"
+                        class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"/>
+                        <input type="submit" class="btn"value="搜索">
+                    </div>
+                </form>
+            </div>
+
+            <ul class="right">
+                <!--用户已登录-->
+                <c:if test="${!empty cur_user}">
+                    <li class="publish-btn">
+                        <button data-position="bottom" class="red lighten-1 waves-effect waves-light btn">
+                            <a href="<%=basePath%>goods/publishGoods">我要发布</a>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="<%=basePath%>user/allGoods">我发布的商品</a>
+                    </li>
+                    <li>
+                        <!--用户名-->
+                        <a>${cur_user.username}</a>
+                    </li>
+                    <li class="changemore">
+                        <a class="changeMoreVertShow()">
+                            <i class="iconfont"></i>
+                        </a>
+                        <div class="more-vert">
+                            <ul class="dropdown-content">
+                                <li><a href="<%=basePath%>/user/home">个人中心</a></li>
+                                <li><a href="<%=basePath%>user/allFocus">我的关注</a></li>
+                                <li><a onclick="ChangeName()">更改用户名</a></li>
+                                <li><a href="<%=basePath%>admin" target="_blank">登录后台</a></li>
+                                <li><a href="<%=basePath%>/user/logout">退出登录</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </c:if>
+                <!--用户没有登录，需要先登录-->
+                <c:if test="${empty cur_user}">
+                    <li>
+                        <a onclick="showLogin()">登录</a>
+                    </li>
+                    <li>
+                        <a onclick="showSignup()">注册</a>
+                    </li>
+                </c:if>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<!--
+
+    描述：左侧导航条
+-->
+<div ng-controller="sidebarController" class="sidebar stark-components ng-scope">
+    <li ng-class="{true: 'active'}[isAll]">
+        <a href="<%=basePath%>goods/catelog" class="index">
+            <img src="<%=basePath%>img/index.png">
+            <em>最新发布</em>
+        </a>
+    </li>
+    <li ng-class="{true: 'active'}[isDigital]">
+        <a href="<%=basePath%>goods/catelog/1" class="digital">
+            <img src="<%=basePath%>img/digital.png"  />
+            <em>闲置数码</em>
+        </a>
+    </li>
+    <li ng-class="{true: 'active'}[isRide]">
+        <a href="<%=basePath%>goods/catelog/2" class="ride">
+            <img src="<%=basePath%>img/ride.png"/>
+            <em>校园代步</em>
+        </a>
+    </li>
+    <li ng-class="{true: 'active'}[isCommodity]">
+        <a href="<%=basePath%>goods/catelog/3" class="commodity">
+            <img src="<%=basePath%>img/commodity.png"/>
+            <em>电器日用</em>
+        </a>
+    </li>
+    <li ng-class="{true: 'active'}[isBook]">
+        <a href="<%=basePath%>goods/catelog/4" class="book">
+            <img src="<%=basePath%>img/book.png"/>
+            <em>图书教材</em>
+        </a>
+    </li>
+    <li ng-class="{true: 'active'}[isMakeup]">
+        <a href="<%=basePath%>goods/catelog/5" class="makeup">
+            <img src="<%=basePath%>img/makeup.png"/>
+            <em>美妆衣物</em>
+        </a>
+    </li>
+    <li ng-class="{true: 'active'}[isSport]">
+        <a href="<%=basePath%>goods/catelog/6" class="sport">
+            <img src="<%=basePath%>img/sport.png"/>
+            <em>运动棋牌</em>
+        </a>
+    </li>
+    <li ng-class="{true: 'active'}[isSmallthing]">
+        <a href="<%=basePath%>goods/catelog/7" class="smallthing">
+            <img src="<%=basePath%>img/smallthing.png"/>
+            <em>票券小物</em>
+        </a>
+    </li>
+    <div class="info">
+        <a href="" target="_blank">关于我们</a><em>-</em>
+        <a href="">联系我们</a>
+        <p>©2019 鸿鹄狮鹫 校园二手市场</p>
+    </div>
+</div>
+<!--
+
+    描述：右侧显示部分
+-->
+<div class="main-content">
+    <!--
+
+        描述：最新发布
+    -->
+    <div class="index-title">
+        <c:if test="${empty catelog.name}"><a href="">最新发布</a></c:if>
+        <hr class="hr1">
+        <hr class="hr2">
+    </div>
+    <div class="waterfoo stark-components row">
+        <div class="item-wrapper normal">
+            <c:forEach var="item" items="${goodsExtendList}">
+                <div class="card col">
+                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                        <div class="card-image">
+                            <img src="<%=basePath%>upload/${item.images[0].imgUrl}" />
+                        </div>
+                        <div class="card-content item-price"><c:out value="${item.goods.price}"></c:out></div>
+                        <div class="card-content item-name">
+                            <p><c:out value="${item.goods.name}"></c:out></p>
+                        </div>
+                        <div class="card-content item-location">
+                            <p>东华大学</p>
+                            <p><c:out value="${item.goods.startTime}"></c:out></p>
+                        </div>
+                    </a>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+</div>
+</body>
+</html>
